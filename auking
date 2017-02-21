@@ -1,0 +1,93 @@
+# /* vim: set filetype=sh ts=2 sw=2 sts=2 et : */
+
+. _aukings
+
+mkdir -p _docs _awk _tmp
+
+auk() {
+  auks
+  AWKPATH="./_awk:${AWKPATH}" gawk --dump-variables=_tmp/awkvars.out --profile=_tmp/awkprof.out  -f $1.awk
+  vars
+}
+
+awks() {
+  echo "# $1 to _awk/" 1>&2
+  cat $1 | gawk '
+  BEGIN {In = 1}
+  gsub(/^"""/,"") {
+    In =  1 - In
+  }
+  { print (In ? "" : "## ") gensub(/\.([a-zA-Z_])([a-zA-Z0-9_]*)/,
+                                  "[\"\\1\\2\"]",
+                                  "g") }
+    '
+}
+
+docs() {
+  echo "# $1 to _docs/" 1>&2
+  cat $1 | gawk '
+  BEGIN {In = 1; Pre=1}
+  gsub(/^"""/,"") {
+    In =  1 - In
+    if (Pre)
+       Pre=0
+    else {
+      if (In)  {
+        print ""
+        print "```awk " $0
+      } else {
+        print "```" $0
+        print ""
+     }
+    }
+    next
+  }
+  Pre  { next }
+      { sub(/^#/,"")
+       print }
+  END  { if (In) print "```\n" }
+  '
+}
+vars() {
+  if [ -f "_tmp/awkvars.out" ]
+  then
+    egrep -v '[A-Z][A-Z]' _tmp/awkvars.out |
+    sed 's/^/W> rogue local: /'
+  fi
+}
+profile() {
+  cat $Tmp/awkprof.out
+}
+
+auks() {
+  for auk1 in *.auk; do
+  	awk1=_awk/${auk1%.*}.awk
+  	doc1=_docs/${auk1%.*}.md
+	if [ "$auk1" -nt "$awk1" ]; then awks $auk1 > $awk1; fi
+	if [ "$auk1" -nt "$doc1" ]; then docs $auk1 > $doc1; fi
+  done
+}
+
+gitready() {
+  git config --global user.email $Email
+  git config --global user.name  $Me
+  git config --global credential.helper cache
+  git config credential.helper 'cache --timeout=3600'
+}
+old() {
+  gitready
+  git pull origin master
+}
+new() {
+  gitready
+  git add .
+  git commit -am newStuff
+  git push origin master
+}
+here() {
+  cd $1; basename "$PWD";
+}
+
+PROMPT_COMMAND='echo  -ne "\033]0;AUK:$(here ..)/$(here .)\007"'
+PS1="AUK:$(here ..)/$(here .) \!> "
+
