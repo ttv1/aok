@@ -63,8 +63,9 @@ auks() {
   for auk1 in *.auk; do
   	awk1=_awk/${auk1%.*}.awk
   	doc1=docs/${auk1%.*}.md
-	if [ "$auk1" -nt "$awk1" ]; then makeawk $auk1 > $awk1; fi
-	if [ "$auk1" -nt "$doc1" ]; then makedoc $auk1 > $doc1; fi
+	  if [ "$auk1" -nt "$awk1" ]; then makeawk $auk1 > $awk1; fi
+	  if [ "$auk1" -nt "$doc1" ]; then makedoc $auk1 > $doc1; fi
+    git add  docs/*
   done
 }
 
