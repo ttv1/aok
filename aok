@@ -97,21 +97,13 @@ ready
 
 echo $1
 
-if   [ "$1" == "new"     ]
-then 
-	new ; exit
-fi
-if [ "$1" == "old"     ]
-then 
-	old; exit
-fi
-if [ "$1" == "profile" ]
-then 
-	profile; exit
-fi
-AWKPATH="$Awk:$AWKPATH" gawk          \
+if   [ "$1" == "new"     ]; then new;
+elif [ "$1" == "old"     ]; then old;
+elif [ "$1" == "profile" ]; then profile;
+else
+  AWKPATH="$Awk:$AWKPATH" gawk          \
        --dump-variables=$Tmp/awkvars.out \
        --profile=$Tmp/awkprof.out         \
        -f $1.awk
 vars
-
+fi 
