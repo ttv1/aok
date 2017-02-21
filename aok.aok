@@ -15,6 +15,7 @@ function test(   x,k,j,l) {
       for(l in x[k][j])
         print k,j,l
   print(length(x[1][2][3]))
+  show(x[1][2][3],"x")
 }
 function test1(x) {
   subray(x, 2)
@@ -25,7 +26,11 @@ function test2(x) {
   num0(x[3])
 }
 function num0(x)   { 
-   x.n = x.mu=n.m2=0; x.hi=-1e31; x.lo=1e32 }
+   x.n = x.mu=x.m2=0; x.hi=-1e31; x.lo=1e32 
  }
+function show(a,pre,    i) {
+  for(i in a)
+    print pre"["i"]="a[i]
+}
 BEGIN { test() }
 
