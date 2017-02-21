@@ -22,8 +22,10 @@ function test1(x) {
 }
 function test2(x) {
   subray(x,3)
-  x[3][0]=22
-  }
-
+  num0(x[3])
+}
+function num0(x)   { 
+   x["n"] = x["mu"]=n["m2"]=0; x["hi"]=-1e31; x["lo"]=1e32 }
+ }
 BEGIN { test() }
 
