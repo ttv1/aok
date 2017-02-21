@@ -1,8 +1,6 @@
 # /* vim: set filetype=awk ts=2 sw=2 sts=2 et : */
 
-function array2(a,b)   { a[b][1];    delete a[b][1]; }
-function array3(a,b,c) { a[b][c][1]; delete a[b][c][1]; }
-function array4(a,b,c,d) { a[b][c][d][1]; delete a[b][c][d][1]; }
+function subray(a,b)   { a[b][1];    delete a[b][1]; }
 
 function push(x,y,z,   n) {
   n = length(x[y])
@@ -10,11 +8,18 @@ function push(x,y,z,   n) {
 }
 function test(   x) {
   split("",x,"")
-  array4(x,100,22,10)
-  print(length(x[100][22][10))
-  push(x[100][22],10,"u")
-  print(x[100][22][10][1])
+  subray(x,1)
+  test1(x)
+  print(length(x[1][2][3]))
 }
+function test1(x) {
+  subray(x, 2)
+  test2(x)
+}
+function test2(x) {
+  subray(x,3)
+  x[3][0]=22
+  }
 
 BEGIN { test() }
 
