@@ -1,11 +1,14 @@
 # /* vim: set filetype=awk ts=2 sw=2 sts=2 et : */
 
 """
-Stuff
+
+## asdads
 
 """
 
-function array0(x) { split("",x"",)
+function array0(x) { 
+   split("",x"",)
+}
 
 function new( x,is) {
 	array0(x)
@@ -14,7 +17,8 @@ function new( x,is) {
 }
 
 
-function num0(x)   { new(x); x.n=n.n.mu=n.m2=0; x.hi=-1e31; x.lo=1e32 }
+function num0(x)   { 
+   new(x); x.n=n.n.mu=n.m2=0; x.hi=-1e31; x.lo=1e32 }
 
 function num1(x,y,  cnts) {
 	array0(cnts)
