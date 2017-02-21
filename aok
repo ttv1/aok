@@ -74,8 +74,8 @@ ready() {
 }
 
 gitready() {
-  git config --global user.email $Email
-  git config --global user.name  $Me
+  git config --global user.email $MyEmail
+  git config --global user.name  $MyName
   git config --global credential.helper cache
   git config credential.helper 'cache --timeout=3600'
 }
