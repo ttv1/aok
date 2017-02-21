@@ -1,4 +1,4 @@
-	# gawk profile, created Tue Feb 21 15:05:10 2017
+	# gawk profile, created Tue Feb 21 15:42:03 2017
 
 	# BEGIN rule(s)
 
@@ -8,6 +8,13 @@
 
 
 	# Functions, listed alphabetically
+
+	function aa(a, d)
+	{
+		a["b"]++
+		a["b2"]["cc"] = a["bb"] + a["days"]
+		d = 2.322
+	}
 
 	function push(x, y, z, n)
 	{
@@ -21,18 +28,25 @@
      3  	delete a[b][1]
 	}
 
-     1  function test(x)
+     1  function test(x, k, j, l)
 	{
      1  	split("", x, "")
      1  	subray(x, 1)
-     1  	test1(x)
+     1  	test1(x[1])
+     1  	for (k in x) {
+     1  		for (j in x[k]) {
+     1  			for (l in x[k][j]) {
+     1  				print k, j, l
+				}
+			}
+		}
      1  	print length(x[1][2][3])
 	}
 
      1  function test1(x)
 	{
      1  	subray(x, 2)
-     1  	test2(x)
+     1  	test2(x[2])
 	}
 
      1  function test2(x)

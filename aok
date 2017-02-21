@@ -103,7 +103,7 @@ elif [ -f "$Awk/$1.awk"  ]; then
   AWKPATH="$Awk:$AWKPATH" gawk          \
        --dump-variables=$Tmp/awkvars.out \
        --profile=$Tmp/awkprof.out         \
-       -f aok.awk
+       -f aok.awk                          \
        -f $1.awk
   vars;
 else 
