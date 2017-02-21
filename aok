@@ -95,11 +95,10 @@ here() {
 
 ready
 
-echo $1
-
 if   [ "$1" == "new"     ]; then new;
 elif [ "$1" == "old"     ]; then old;
 elif [ "$1" == "profile" ]; then profile;
+elif [ -z "$1"           ]; then echo "Nothing to do.";
 else
   AWKPATH="$Awk:$AWKPATH" gawk          \
        --dump-variables=$Tmp/awkvars.out \
