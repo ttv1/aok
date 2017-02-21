@@ -2,7 +2,7 @@
 # asdads
 
 
-```gawk 
+```awk 
 
 function array0(x) { 
    split("",x"",)
