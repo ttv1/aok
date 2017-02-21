@@ -1,14 +1,18 @@
+#!/bin/bash
 # /* vim: set filetype=sh ts=2 sw=2 sts=2 et : */
 
-. _aukings
+Me="Alfred W. Kerninghan"
+Email="awk@att.com"
 
-mkdir -p docs _awk _tmp
+Awk=_var/awk
+Tmp=_var/tmp
+Docs=docs
 
-auk() {
-  auks
-  AWKPATH="./_awk:${AWKPATH}" gawk --dump-variables=_tmp/awkvars.out --profile=_tmp/awkprof.out  -f $1.awk
-  vars
-}
+if [ -f "./aok.rc" ]; then
+  . ./aok.rc
+fi
+
+mkdir -p $Docs $Awk $Tmp
 
 makeawk() {
   echo "# $1 to _awk/" 1>&2
@@ -20,7 +24,7 @@ makeawk() {
   { print (In ? "" : "## ") gensub(/\.([a-zA-Z_])([a-zA-Z0-9_]*)/,
                                   "[\"\\1\\2\"]",
                                   "g") }
-    '
+  '
 }
 
 makedoc() {
@@ -49,9 +53,9 @@ makedoc() {
   '
 }
 vars() {
-  if [ -f "_tmp/awkvars.out" ]
+  if [ -f "$Tmp/awkvars.out" ]
   then
-    egrep -v '[A-Z][A-Z]' _tmp/awkvars.out |
+    egrep -v '[A-Z][A-Z]' $Tmp/awkvars.out |
     sed 's/^/W> rogue local: /'
   fi
 }
@@ -59,10 +63,10 @@ profile() {
   cat $Tmp/awkprof.out
 }
 
-auks() {
+ready() {
   for auk1 in *.auk; do
-  	awk1=_awk/${auk1%.*}.awk
-  	doc1=docs/${auk1%.*}.md
+  	awk1=$Awk/${auk1%.*}.awk
+  	doc1=$Docs/${auk1%.*}.md
 	  if [ "$auk1" -nt "$awk1" ]; then makeawk $auk1 > $awk1; fi
 	  if [ "$auk1" -nt "$doc1" ]; then makedoc $auk1 > $doc1; fi
     git add  docs/*
@@ -89,6 +93,25 @@ here() {
   cd $1; basename "$PWD";
 }
 
-PROMPT_COMMAND='echo  -ne "\033]0;AUK:$(here ..)/$(here .)\007"
-PS1="AUK:$(here ..)/$(here .) \!> "'
+ready
+
+echo $1
+
+if   [ "$1" == "new"     ]
+then 
+	new ; exit
+fi
+if [ "$1" == "old"     ]
+then 
+	old; exit
+fi
+if [ "$1" == "profile" ]
+then 
+	profile; exit
+fi
+AWKPATH="$Awk:$AWKPATH" gawk          \
+       --dump-variables=$Tmp/awkvars.out \
+       --profile=$Tmp/awkprof.out         \
+       -f $1.awk
+vars
 
