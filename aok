@@ -1,16 +1,14 @@
 #!/bin/bash
 # /* vim: set filetype=sh ts=2 sw=2 sts=2 et : */
 
-Me="Alfred W. Kerninghan"
-Email="awk@att.com"
+MyName="Alfred W. Kerninghan"
+MyEmail="awk@att.com"
 
 Awk=_var/awk
 Tmp=_var/tmp
 Docs=docs
 
-if [ -f "./aok.rc" ]; then
-  . ./aok.rc
-fi
+if [ -f "./aok.rc" ]; then . ./aok.rc; fi
 
 mkdir -p $Docs $Awk $Tmp
 
@@ -60,16 +58,18 @@ vars() {
   fi
 }
 profile() {
-  cat $Tmp/awkprof.out
+  if [ -f "$Tmp/awkprof.out" ]; then
+    cat $Tmp/awkprof.out
+  fi
 }
 
 ready() {
-  for auk1 in *.auk; do
-  	awk1=$Awk/${auk1%.*}.awk
-  	doc1=$Docs/${auk1%.*}.md
-	  if [ "$auk1" -nt "$awk1" ]; then makeawk $auk1 > $awk1; fi
-	  if [ "$auk1" -nt "$doc1" ]; then makedoc $auk1 > $doc1; fi
-    git add  docs/*
+  for aok1 in *.aok; do
+  	awk1=$Awk/${aok1%.*}.awk
+  	doc1=$Docs/${aok1%.*}.md
+	if [ "$aok1" -nt "$awk1" ]; then makeawk $aok1 > $awk1; fi
+	if [ "$aok1" -nt "$doc1" ]; then makedoc $aok1 > $doc1; fi
+        git add  docs/*
   done
 }
 
