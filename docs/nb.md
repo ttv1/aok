@@ -1,7 +1,7 @@
 #Stuff
 
 
-```gawk 
+```c++ 
 
 function array0(x) { split("",x"",)
 
