@@ -89,16 +89,12 @@ new() {
   git commit -am newStuff
   git push origin master
 }
-here() {
-  cd $1; basename "$PWD";
-}
 
 ready
 
 if   [ "$1" == "new"     ]; then new;
 elif [ "$1" == "old"     ]; then old;
 elif [ "$1" == "profile" ]; then profile;
-elif [ -z "$1"           ]; then echo "Nothing to do.";
 elif [ -f "$Awk/$1.awk"  ]; then
   AWKPATH="$Awk:$AWKPATH" gawk          \
        --dump-variables=$Tmp/awkvars.out \
@@ -106,5 +102,5 @@ elif [ -f "$Awk/$1.awk"  ]; then
        -f $1.awk
   vars;
 else 
-  echo "??"
+	echo "usage ./aok (new | old | profile | file)"
 fi 
