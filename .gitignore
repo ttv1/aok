@@ -1,5 +1,4 @@
-_tmp
-_awk
+_var
 ### Vim ###
 [._]*.s[a-w][a-z]
 [._]s[a-w][a-z]
