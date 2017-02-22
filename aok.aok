@@ -1,11 +1,23 @@
 # /* vim: set filetype=awk ts=2 sw=2 sts=2 et : */
 
+"""
+## hello
+
+asdas
+
+"""
+
 function subray(a,b)   { a[b][1];    delete a[b][1]; }
 
 function push(x,y,z,   n) {
   n = length(x[y])
   x[y][n+1] = z
 }
+
+"""
+here
+"""
+
 function test(   x,k,j,l) {
   split("",x,"")
   subray(x,1)
