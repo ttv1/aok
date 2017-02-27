@@ -24,7 +24,6 @@ makeawk() {
                                   "g") }
   '
 }
-
 makedoc() {
   echo "# $1 to docs/" 1>&2
   cat $1 | gawk '
@@ -62,7 +61,6 @@ profile() {
     cat $Tmp/awkprof.out
   fi
 }
-
 ready() {
   for aok1 in *.aok; do
   	awk1=$Awk/${aok1%.*}.awk
@@ -73,7 +71,6 @@ ready() {
 	git add $Docs/*
   done
 }
-
 gitready() {
   git config --global user.email $MyEmail
   git config --global user.name  $MyName
