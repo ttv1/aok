@@ -1,7 +1,7 @@
 #!/bin/bash
 # /* vim: set filetype=sh ts=2 sw=2 sts=2 et : */
 
-MyName="Alfred W. Kerninghan"
+MyName="Alfred Oliver Kerninghan"
 MyEmail="awk@att.com"
 
 Awk=_var/awk
