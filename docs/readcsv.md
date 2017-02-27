@@ -23,8 +23,7 @@ function line(f,   str) {
     else
       return str 
   } 
-  else
-    return -1
+  return -1
 }
 function readcsv(f,   str,a,t,n) {
   Table(t)
@@ -55,17 +54,17 @@ function Sym(i) {
   i.mode = ""
   i.most = 0
 }
-function sym1(i,v) {
+function sym1(i,v,     n) {
   n = i.counts[v]++
   if (n > i.most) {
-   i.mode = v
+    i.mode = v
     i.most = n
 }}
 function Num(i) {
   i.is = "Num"
   i.hi = -1e32
   i.lo =  1e32
-  i.n = i.mu = i.m2 = i.sd = 0
+  i.n  = i.mu = i.m2 = i.sd = 0
   has(i,"cache","Sample")
 }
 function num1(i,v,          delta) {
