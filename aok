@@ -63,6 +63,9 @@ profile() {
     cat $Tmp/awkprof.out
   fi
 }
+run() {
+  gawk --source 'BEGIN { '"$*"'}'
+}
 ready() {
   for aok1 in *.aok; do
   	awk1=$Awk/${aok1%.*}.awk
@@ -95,6 +98,9 @@ ready
 if   [ "$1" == "new"     ]; then new;
 elif [ "$1" == "old"     ]; then old;
 elif [ "$1" == "profile" ]; then profile;
+elif [ "$1" == "do"      ]; then 
+  shift
+  run "$*"
 elif [ -f "$Awk/$1.awk"  ]; then
   AWKPATH="$Awk:$AWKPATH" gawk          \
        --dump-variables=$Tmp/awkvars.out \

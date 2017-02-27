@@ -14,6 +14,31 @@ function has(a,b,c)   {
 }
 function push(i,v) { i[length(i) + 1] = v }
 
+function isnum(x) { 
+  return x=="" ? 0 : x == (0+strtonum(x)) 
+}
+function o(l,prefix,order,   indent,   old,i) {
+  if(! isarray(l)) {
+    print "not array",prefix,l
+    return 0}
+  if(!order)
+    for(i in l) { 
+      if (isnum(i))
+        order = "@ind_num_asc" 
+      else 
+        order = "@ind_str_asc"
+      break
+    }     
+   old = PROCINFO["sorted_in"] 
+   PROCINFO["sorted_in"]= order
+   for(i in l) 
+     if (isarray(l[i])) {
+       print indent prefix "[" i "]"
+       o(l[i],"",order, indent "|   ")
+     } else
+       print indent prefix "["i"] = (" l[i] ")"
+   PROCINFO["sorted_in"]  = old 
+}
 function line(f,   str) {
   if ((getline str < f) > 0) {
     gsub(/[ \t\r]*/,"",str) 
@@ -89,7 +114,6 @@ function sym1(i,v,     n) {
     i.most = n
 }}
 function Num(i) {
-  i.is = "Num"
   i.hi = -1e32
   i.lo =  1e32
   i.n  = i.mu = i.m2 = i.sd = 0
@@ -115,7 +139,7 @@ function Thing(i,     txt,pos) {
 function thing1(i,v,pos,t) {
   if (v=="?") return
   if ( length(i,my) == 0 ) {
-    if (v+0 == v) {
+    if (isnum(v)) {
       i.adder="num1"
       Num(i.my)
       push(t.cols.num,pos)
