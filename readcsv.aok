@@ -33,7 +33,8 @@ function readcsv(f,   str,a,t,n) {
   str = line(f)
   while(str != -1) {
     split(str,a,FS) 
-    n++ ? tableRow1(t,a) : tableHeader1(t,a) 
+    n++ 
+    n == 1 ? tableRow1(t,a) : tableHeader1(t,a) 
     str = line(f)
 }}
 function Sample(i,     most) {
