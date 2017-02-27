@@ -10,7 +10,7 @@ function has(a,b,c)   {
   a[b][1];    
   delete a[b][1]
   if (c)
-    &c(a[b])
+    @c(a[b])
 }
 function push(i,v) { i[length(i) + 1] = v }
 
@@ -25,15 +25,34 @@ function line(f,   str) {
   } 
   return -1
 }
-function readcsv(f,   str,a,t,n) {
+function csv2table(f,t,   str,a,t,n) {
   Table(t)
-  f   = f ? f : "-"
   str = line(f)
   while(str != -1) {
     split(str,a,FS) 
     n++ 
     n == 1 ? tableRow1(t,a) : tableHeader1(t,a) 
     str = line(f)
+  }
+}
+function tableHeader1(t,lst,i,     n,txt):
+  for(n in lst) {
+    txt = lst[n]
+	 	has(t.cols.all,n)
+    Thing(t.cols.all[n],txt,n)
+    if (txt ~= /^</) 
+		   push(t.cols.less,n) 
+    if (txt ~= /^>/) 
+		   push(t.cols.more,n) 
+    if (txt ~= /^!/) 
+		   push(t.cols.klass,n) 
+  }
+}
+function tableRow1(t,lst) {
+   j=len(t.rows)+1
+   for(n in lst) {
+	  t.rows[j][n] = lst[i]
+    thing1(t.cols.all[n],lst[i])
 }}
 function Sample(i,     most) {
   i.most= most ? most : 256
@@ -85,15 +104,17 @@ function Thing(i,     txt,pos) {
   i.name = txt
   i.pos  = pos
 }
-function thing1(i,v) {
+function thing1(i,v,pos,t) {
   if (v=="?") return
   if ( length(i,my) == 0 ) {
     if (v+0 == v) {
       i.adder="num1"
       Num(i.my)
+      push(t.cols.num,pos)
     } else {
       i.adder="sym1"
       Sym(i.my)
+      push(t.syms.num,pos)
   }}
   &i.adder(i.my,v)
 }
