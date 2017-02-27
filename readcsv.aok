@@ -37,18 +37,26 @@ function csv2table(f,t,   str,a,t,n) {
     str = line(f)
   }
 }
-function tableHeader1(t,lst,i,     n,txt):
+# row 
+# raw
+# cooked
+function tableHeader1(t,lst,i,     klassed,n,txt) {
   for(n in lst) {
     txt = lst[n]
 	 	has(t.cols.all,n)
     Thing(t.cols.all[n],txt,n)
-    if (txt ~= /^</) 
+    if (txt ~= /^</)  {
+       klassed=1
 		   push(t.cols.less,n) 
-    if (txt ~= /^>/) 
+    } else if (txt ~= /^>/)  {
+       klassed=1
 		   push(t.cols.more,n) 
-    if (txt ~= /^!/) 
+    } else if (txt ~= /^!/)  {
+       klassed=1
 		   push(t.cols.klass,n) 
-  }
+	}}
+  if (!klassed)
+	   push(t.cols.klass,length(lst))
 }
 function tableRow1(t,lst) {
    j=len(t.rows)+1
