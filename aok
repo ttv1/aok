@@ -8,7 +8,9 @@ Awk=_var/awk
 Tmp=_var/tmp
 Docs=docs
 
-if [ -f "./aok.rc" ]; then . ./aok.rc; fi
+if [ -f "./aok.rc" ]; then 
+  . ./aok.rc
+fi
 
 mkdir -p $Docs $Awk $Tmp
 
