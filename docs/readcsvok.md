@@ -7,7 +7,7 @@
 @include "readcsv"
 
 BEGIN {
-  csv2table("data/weather..csv")
+  csv2table("data/weather__csv")
 }
 ```
 
