@@ -4,7 +4,7 @@
 
 
 ```awk 
-BEGIN { srand(Seed ? Seed :1  ) }
+BEGIN { srand(SEED ? SEED :1  ) }
 
 function has(a,b,c)   { 
   a[b][1];    
@@ -50,8 +50,9 @@ function line(f,   str) {
   } 
   return -1
 }
-function csv2table(f,t,   str,a,t,n) {
+function csv2table(f,t,   str,a,n) {
   Table(t)
+  o(t,"T")
   str = line(f)
   while(str != -1) {
     split(str,a,FS) 
@@ -63,30 +64,34 @@ function csv2table(f,t,   str,a,t,n) {
  row 
  raw
  cooked
-function tableHeader1(t,lst,i,     klassed,n,txt) {
+function tableHeader1(t,lst,i,     
+                      klassed,n,txt) {
   for(n in lst) {
     txt = lst[n]
 	 	has(t.cols.all,n)
     Thing(t.cols.all[n],txt,n)
-    if (txt ~= /^</)  {
+    if (txt ~ /^</)  {
        klassed=1
 		   push(t.cols.less,n) 
-    } else if (txt ~= /^>/)  {
+    } else if (txt ~ /^>/)  {
        klassed=1
 		   push(t.cols.more,n) 
-    } else if (txt ~= /^!/)  {
+    } else if (txt ~ /^!/)  {
        klassed=1
 		   push(t.cols.klass,n) 
 	}}
   if (!klassed)
 	   push(t.cols.klass,length(lst))
 }
-function tableRow1(t,lst) {
-   j=len(t.rows)+1
+function tableRow1(t,lst,   n,j) {
+   j=length(t.rows)+1
    for(n in lst) {
-	  t.rows[j][n] = lst[i]
-    thing1(t.cols.all[n],lst[i])
-}}
+	   t.rows[j][n] = lst[n]
+     has(t.cols.all,"n")
+     thing1(t.cols.all[n],lst[n])
+  }
+  o(t,"row1")
+}
 function Sample(i,     most) {
   i.most= most ? most : 256
   has(i,"all")
@@ -98,7 +103,7 @@ function sample1(i,v,
   len=length(i.all)
   if (len < i.most)
     push(v,i.all)
-  else if (rand() < len/n)  
+  else if (rand() < len/i.n)  
     i.all[ int(len*rand()) + 1 ] = v
 }
 function Sym(i) {
@@ -132,13 +137,15 @@ function num1(i,v,          delta) {
 }
 function Thing(i,     txt,pos) {
   has(i,"my")
+  print(">>",length(i.my))
   i.adder= ""
   i.name = txt
   i.pos  = pos
 }
-function thing1(i,v,pos,t) {
+function thing1(i,v,pos,t,  tmp) {
+  o(i,"thing1")
   if (v=="?") return
-  if ( length(i,my) == 0 ) {
+  if ( length(i.my) == 0 ) {
     if (isnum(v)) {
       i.adder="num1"
       Num(i.my)
@@ -148,7 +155,8 @@ function thing1(i,v,pos,t) {
       Sym(i.my)
       push(t.syms.num,pos)
   }}
-  &i.adder(i.my,v)
+  tmp=i.adder
+  @tmp(i.my,v)
 }
 function Cols(i) {
   has(i,"all")

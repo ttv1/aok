@@ -21,10 +21,13 @@ makeawk() {
   gsub(/^"""/,"") {
     In =  1 - In
   }
-  { print (In ? "" : "## "),
-          gensub(/\.([a-zA-Z_])([a-zA-Z0-9_]*)/,
+  { txt = gensub(/\.([a-zA-Z_])([a-zA-Z0-9_]*)/,
                  "[\"\\1\\2\"]",
-                 "g") }
+                 "g",
+                 $0) 
+    gsub(/__/,".",txt)
+    print (In ? "" : "## ") txt
+  }
   '
 }
 makedoc() {
