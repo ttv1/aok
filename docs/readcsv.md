@@ -4,7 +4,8 @@
 
 
 ```awk 
-BEGIN { srand(SEED ? SEED :1  ) }
+BEGIN { FS=OFS=",";
+        srand(SEED ? SEED :1  ) }
 
 function has(a,b,c)   { 
   a[b][1];    
@@ -52,12 +53,12 @@ function line(f,   str) {
 }
 function csv2table(f,t,   str,a,n) {
   Table(t)
-  o(t,"T")
   str = line(f)
   while(str != -1) {
+    print("str",str)
     split(str,a,FS) 
     n++ 
-    n == 1 ? tableRow1(t,a) : tableHeader1(t,a) 
+    n == 1 ? tableHeader1(t,a) : tableRow1(t,a) 
     str = line(f)
   }
 }
@@ -66,6 +67,7 @@ function csv2table(f,t,   str,a,n) {
  cooked
 function tableHeader1(t,lst,i,     
                       klassed,n,txt) {
+  klassed=0
   for(n in lst) {
     txt = lst[n]
 	 	has(t.cols.all,n)
@@ -87,13 +89,12 @@ function tableRow1(t,lst,   n,j) {
    j=length(t.rows)+1
    for(n in lst) {
 	   t.rows[j][n] = lst[n]
-     has(t.cols.all,"n")
-     thing1(t.cols.all[n],lst[n])
+     has(t.cols.all,n)
+     thing1(t.cols.all[n],lst[n],n,t)
   }
-  o(t,"row1")
 }
 function Sample(i,     most) {
-  i.most= most ? most : 256
+  i.most= most ? most : 8
   has(i,"all")
   i.n=0
 }
@@ -102,11 +103,12 @@ function sample1(i,v,
   i.n++
   len=length(i.all)
   if (len < i.most)
-    push(v,i.all)
+    push(i.all,v)
   else if (rand() < len/i.n)  
     i.all[ int(len*rand()) + 1 ] = v
 }
 function Sym(i) {
+  o(i,"s")
   i.is   = "Sym"
   has(i,"count")
   i.mode = ""
@@ -126,6 +128,7 @@ function Num(i) {
 }
 function num1(i,v,          delta) {
   v    += 0
+  sample1(i.cache,v)
   i.n  += 1
   i.lo  = v < i.lo ? v : i.lo 
   i.hi  = v > i.hi ? v : i.hi 
@@ -143,9 +146,9 @@ function Thing(i,     txt,pos) {
   i.pos  = pos
 }
 function thing1(i,v,pos,t,  tmp) {
-  o(i,"thing1")
   if (v=="?") return
   if ( length(i.my) == 0 ) {
+    print("isnum",v,isnum(v))
     if (isnum(v)) {
       i.adder="num1"
       Num(i.my)
@@ -153,7 +156,7 @@ function thing1(i,v,pos,t,  tmp) {
     } else {
       i.adder="sym1"
       Sym(i.my)
-      push(t.syms.num,pos)
+      push(t.cols.sym,pos)
   }}
   tmp=i.adder
   @tmp(i.my,v)
@@ -170,5 +173,34 @@ function Table(i) {
   has(i,"rows") 
   has(i,"cols","Cols")
 }
+
+function _test1() { 
+  Table(t)
+  #print(22)
+  #o(t,"t")
+  split("a,b,c",lst,",")
+  #o(lst,"lst")
+  tableHeader1(t,lst)
+  for(i=1;i<=1000;i++) {
+    split("1,2,2",lst,",")
+    tableRow1(t,lst)
+    split("0,10,10",lst,",")
+    tableRow1(t,lst)
+  }
+  #o(t.cols,"t3")
+}
+
+function _test2(   t) {
+  print(21)
+  Table(t)
+  print(22)
+  o(t,"t")
+  split("outlook,temperature,humidity,windy,!play",lst,",")
+  tableHeader1(t,lst)
+  split("sunny,85,85,FALSE,no",lst,",")
+  tableRow1(t,lst)
+}
+
+BEGIN { _test2() }
 ```
 
