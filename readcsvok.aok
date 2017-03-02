@@ -9,7 +9,7 @@
 @include "readcsv"
 
 function _weather1(    t) {
-  csv2table("data/weather__csv",t)
+  readcsv("data/weather__csv",t)
   o(t,"tw")
 }
 

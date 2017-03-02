@@ -6,8 +6,7 @@
 
 
 """
-BEGIN { FS=OFS=",";
-        srand(SEED ? SEED :1  ) }
+BEGIN { FS=OFS="," }
 
 function has(a,b,c)   { 
   a[b][1];    
@@ -53,21 +52,20 @@ function line(f,   str) {
   } 
   return -1
 }
-function csv2table(f,t,   str,a,n) {
+###########################################
+function readcsv(f,t,   str,a,n) {
   Table(t)
   str = line(f)
   while(str != -1) {
-    print("str",str)
     split(str,a,FS) 
-    n++ 
-    n == 1 ? tableHeader1(t,a) : tableRow1(t,a) 
+    ++n == 1 ? _readcsvHead(t,a) : _readcsvRow(t,a) 
     str = line(f)
   }
 }
 # row 
 # raw
 # cooked
-function tableHeader1(t,lst,i,     
+function _readcsvHead(t,lst,i,     
                       klassed,n,txt) {
   klassed=0
   for(n in lst) {
@@ -87,7 +85,7 @@ function tableHeader1(t,lst,i,
   if (!klassed)
 	   push(t.cols.klass,length(lst))
 }
-function tableRow1(t,lst,   n,j) {
+function _readcsvRow(t,lst,   n,j) {
    j=length(t.rows)+1
    for(n in lst) {
 	   t.rows[j][n] = lst[n]
@@ -110,14 +108,12 @@ function sample1(i,v,
     i.all[ int(len*rand()) + 1 ] = v
 }
 function Sym(i) {
-  o(i,"s")
-  i.is   = "Sym"
   has(i,"count")
   i.mode = ""
   i.most = 0
 }
 function sym1(i,v,     n) {
-  n = i.counts[v]++
+  n = ++i.counts[v]
   if (n > i.most) {
     i.mode = v
     i.most = n
@@ -130,7 +126,6 @@ function Num(i) {
 }
 function num1(i,v,          delta) {
   v    += 0
-  sample1(i.cache,v)
   i.n  += 1
   i.lo  = v < i.lo ? v : i.lo 
   i.hi  = v > i.hi ? v : i.hi 
@@ -139,18 +134,17 @@ function num1(i,v,          delta) {
   i.m2 += delta*(v-i.mu)
   if (i.n > 1)
 	  i.sd = (i.m2/(i.n-1))^0.5
+  sample1(i.cache,v)
 }
 function Thing(i,     txt,pos) {
   has(i,"my")
-  print(">>",length(i.my))
   i.adder= ""
   i.name = txt
   i.pos  = pos
 }
 function thing1(i,v,pos,t,  tmp) {
   if (v=="?") return
-  if ( length(i.my) == 0 ) {
-    print("isnum",v,isnum(v))
+  if ( ! length(i.my) ) {
     if (isnum(v)) {
       i.adder="num1"
       Num(i.my)
@@ -176,31 +170,3 @@ function Table(i) {
   has(i,"cols","Cols")
 }
 
-function _test1() { 
-  Table(t)
-  #print(22)
-  #o(t,"t")
-  split("a,b,c",lst,",")
-  #o(lst,"lst")
-  tableHeader1(t,lst)
-  for(i=1;i<=1000;i++) {
-    split("1,2,2",lst,",")
-    tableRow1(t,lst)
-    split("0,10,10",lst,",")
-    tableRow1(t,lst)
-  }
-  #o(t.cols,"t3")
-}
-
-function _test2(   t) {
-  print(21)
-  Table(t)
-  print(22)
-  o(t,"t")
-  split("outlook,temperature,humidity,windy,!play",lst,",")
-  tableHeader1(t,lst)
-  split("sunny,85,85,FALSE,no",lst,",")
-  tableRow1(t,lst)
-}
-
-BEGIN { _test2() }
