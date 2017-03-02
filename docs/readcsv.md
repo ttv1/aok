@@ -39,30 +39,27 @@ function o(l,prefix,order,   indent,   old,i) {
        print indent prefix "["i"] = (" l[i] ")"
    PROCINFO["sorted_in"]  = old 
 }
-function line(f,   str) {
+##########################################
+function readcsv(f,t,   str,a,n) {
+  Table(t)
+  str = _readcsvLine(f)
+  while(str != -1) {
+    split(str,a,FS) 
+    ++n == 1 ? _readcsvHead(t,a) : _readcsvRow(t,a) 
+    str = _readcsvLine(f)
+  }
+}
+function _readcsvLine(f,   str) {
   if ((getline str < f) > 0) {
     gsub(/[ \t\r]*/,"",str) 
     gsub(/#.*$/,"",str)
-    if ( str ~ /,[ \t]*$/ )
-      return str line(f)
+    if ( str ~ /,$/ )
+      return str _readcsvLine(f)
     else
       return str 
   } 
   return -1
 }
-##########################################
-function readcsv(f,t,   str,a,n) {
-  Table(t)
-  str = line(f)
-  while(str != -1) {
-    split(str,a,FS) 
-    ++n == 1 ? _readcsvHead(t,a) : _readcsvRow(t,a) 
-    str = line(f)
-  }
-}
- row 
- raw
- cooked
 function _readcsvHead(t,lst,i,     
                       klassed,n,txt) {
   klassed=0
