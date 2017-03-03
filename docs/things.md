@@ -105,6 +105,11 @@ function Number1(i,v,          delta) {
   if (i.n > 1)
 	  i.sd = (i.m2/(i.n-1))^0.5
 }
+function NumberNorm(i,v,   tmp) {
+  if (v < i.lo) return 0
+  if (v > i.hi) return 1
+  return  (v - i.lo)/(i.hi - i.lo)
+}
 function Remedian(i,   k) {
   has(i,"all")
   has(i,"more")

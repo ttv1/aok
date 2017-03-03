@@ -12,9 +12,9 @@ function readcsv(f,t,   str,a,n) {
   str = _readcsvLine(f)
   while(str != -1) {
     split(str,a,FS)
-    if(n++)
+    if(n++) # true after line1
       _readcsvRow(t,a)
-    else
+    else    # line 1
       _readcsvHead(t,a)
     str = _readcsvLine(f)
 }}
@@ -31,19 +31,18 @@ function _readcsvLine(f,   str) {
 }
 function _readcsvHead(t,lst,i,
                       klassed,n,txt) {
-  klassed=0
   for(n in lst) {
     txt = lst[n]
 	 	has(t.cols.all,n)
     Column(t.cols.all[n],txt,n)
     if (txt ~ /^</)  {
-       klassed=1
+       klassed++
        t.cols.less[n]
     } else if (txt ~ /^>/)  {
-       klassed=1
+       klassed++
        t.cols.more[n]
     } else if (txt ~ /^!/)  {
-       klassed=1
+       klassed++
 		   t.cols.klass[n]
 	  } else
        t.cols.indep[n]
