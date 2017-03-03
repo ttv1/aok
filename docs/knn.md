@@ -1,13 +1,12 @@
-# /* vim: set filetype=awk ts=2 sw=2 sts=2 et : */
 
-"""
+# Readcsv
 
-## Readcsv
 
-"""
+
+```awk 
 
 @include "lib"
-@include "table"
+@include "things"
 
 function readcsv(f,t,   str,a,n) {
   Table(t)
@@ -59,3 +58,6 @@ function _readcsvRow(t,lst,   n,j,val) {
 	   t.rows[j][n] = lst[n]
      Column1(t.cols.all[n], lst[n] ,n,t)
 }}
+
+```
+
