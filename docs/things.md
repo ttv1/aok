@@ -108,7 +108,7 @@ function Number1(i,v,          delta) {
 function NumberNorm(i,v,   tmp) {
   if (v < i.lo) return 0
   if (v > i.hi) return 1
-  return  (v - i.lo)/(i.hi - i.lo)
+  return  (v - i.lo)/(i.hi - i.lo + 1e-31)
 }
 function Remedian(i,   k) {
   has(i,"all")
