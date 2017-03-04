@@ -15,18 +15,22 @@
 A thing for catching many values, but keepig
 only  small sample of them.
 
+Table         [rows] [cols]:Columns
+Columns       [all] [more] [less] [sym] [num] [indep] [klass]
 Row           id [raw] [cooked]
+
 Column        my adder name pos
 my            [NumberFarcade] 
               | [Symbol]
 NumberFarcade [remedian]:Remedian [sample]:Sample [num]:Number
+
+Remedian      [all] [more] k=128 _median
+
 Sample        most=64 [all] n=0
 Symbol        [count] mode most=0
-Number        hi=-1e32 lo=1e32 bins=5 n=0 mu=0 m2=0 sd=0
-Remedian      [all] [more] k=128 _median
-Columns       [all] [mpre] [less] [sym] [num] [indep] [klass]
-Table         [rows] [cols]:Columns
+
 Distance      d=0 n=1e-32 p=2
+Number        hi=-1e32 lo=1e32 bins=5 n=0 mu=0 m2=0 sd=0
 
 """
 
