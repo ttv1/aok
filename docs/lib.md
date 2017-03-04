@@ -8,6 +8,9 @@ Standard background stuff.
 
 BEGIN { FS=OFS="," }
 
+function lt(a,b) { return a < b }
+function gt(a,b) { return a > b }
+
 function has(a,b,c)   { 
   a[b][1];    
   delete a[b][1]

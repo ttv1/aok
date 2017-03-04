@@ -17,7 +17,9 @@ function readcsv(f,t,   str,a,n) {
     else    # line 1
       _readcsvHead(t,a)
     str = _readcsvLine(f)
-}}
+  }
+  close(f)
+}
 function _readcsvLine(f,   str) {
   if ((getline str < f) > 0) {
     gsub(/[ \t\r]*/,"",str)
@@ -53,8 +55,9 @@ function _readcsvHead(t,lst,i,
 function _readcsvRow(t,lst,   n,j,val) {
    j=length(t.rows)+1
    for(n in lst) {
-	   t.rows[j][n] = lst[n]
+	   t.rows[j].raw[n] = lst[n]
      Column1(t.cols.all[n], lst[n] ,n,t)
-}}
+   }
+}
 ```
 

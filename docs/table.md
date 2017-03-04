@@ -20,6 +20,23 @@ function Table(i) {
   has(i,"rows")
   has(i,"cols","Columns")
 }
+function closest(i,a,   zero,bt,
+                        b,out,tmp,best) {
+  best= zero=="" ? 1e32 : zero 
+  bt  = bt ? bt : "lt"
+  out = a
+  for (b in i.rows)
+    if (b != a) {
+      tmp = TableDist(i, i.rows[a].raw, i.rows[b].raw )
+      if ( @bt(tmp,best) ) {
+        best = tmp 
+        out  = b
+  }}
+  return out
+}
+function furthest(i,a) {
+  return closest(i,a, "-1", "gt")
+}
 function Distance(i,p) {
   i.d= 0
   i.n= 1e-32
@@ -32,10 +49,17 @@ function Distance1(i,inc) {
 function Distanced(i) {
   return i.d**(1/i.p) / i.n**(1/i.p)
 }
+function TableRow(i,a,   j,str,sep) {
+  for(j in i.rows[a].raw) {
+    str = str sep i.rows[a].raw[j]
+    sep = ","
+  }
+  return str
+}
 function TableDist(i,a,b,  col,d,n) {
   Distance(d)
   for(col in i.cols.indep) 
-    _TableDist(i.cols.syms, 
+    _TableDist(i.cols.sym, 
                i.cols.all[col], 
                a,b,d)
   return Distanced(d)

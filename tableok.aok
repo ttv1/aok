@@ -1,0 +1,38 @@
+# /* vim: set filetype=awk ts=2 sw=2 sts=2 et : */
+
+"""
+
+## table ok
+
+"""
+
+@include "table"
+@include "readcsv"
+
+function _table1(    t,r1,r2) {
+  srand(SEED ? SEED : 1)
+  readcsv("data/weather__csv",t)
+  for(r1 in t.rows)
+    for(r2 in t.rows)
+      if (r1 > r2)
+        print "_table1",r1,r2,TableDist(t,
+                              t.rows[r1].raw,
+                              t.rows[r2].raw)
+}
+
+function _table2(    t,r1,r2,r3) {
+  srand(SEED ? SEED : 1)
+  readcsv("data/weather__csv",t)
+  for(r1 in t.rows) {
+    r2 = closest(t,r1)
+    r3 = furthest(t,r1)
+    print "\n" TableRow(t,r1)
+    print  TableRow(t,r2) " <== closest"
+    print  TableRow(t,r3) " <== furthest"
+  }
+}
+
+BEGIN { _table1() 
+        _table2() 
+      }
+
