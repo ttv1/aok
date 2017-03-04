@@ -1,2 +1,6 @@
+Awk=_var/awk # where to keep the generated awk files
+Tmp=_var/tmp # where to write temporaroes
+Docs=docs    # where to write the generated markdown files
+
 MyName="'Tim Menzies'"
 MyEmail="'tim@menzies.us'"
