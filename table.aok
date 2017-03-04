@@ -10,17 +10,17 @@
 @include "things"
 
 function Columns(i) {
-  has(i,"all")
-  has(i,"more")
-  has(i,"less")
-  has(i,"sym")
-  has(i,"num")
-  has(i,"indep")
-  has(i,"klass")
+  have(i,"all")
+  have(i,"more")
+  have(i,"less")
+  have(i,"sym")
+  have(i,"num")
+  have(i,"indep")
+  have(i,"klass")
 }
 function Table(i) {
-  has(i,"rows")
-  has(i,"cols","Columns")
+  have(i,"rows")
+  have(i,"cols","Columns")
 }
 function closest(i,a,   zero,bt,
                         b,out,tmp,best) {

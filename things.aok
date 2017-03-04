@@ -15,20 +15,40 @@
 A thing for catching many values, but keepig
 only  small sample of them.
 
-"""
+Row           id [raw] [cooked]
+Column        my adder name pos
+my            [NumberFarcade] 
+              | [Symbol]
+NumberFarcade [remedian]:Remedian [sample]:Sample [num]:Number
+Sample        most=64 [all] n=0
+Symbol        [count] mode most=0
+Number        hi=-1e32 lo=1e32 bins=5 n=0 mu=0 m2=0 sd=0
+Remedian      [all] [more] k=128 _median
+Columns       [all] [mpre] [less] [sym] [num] [indep] [klass]
+Table         [rows] [cols]:Columns
+Distance      d=0 n=1e-32 p=2
 
 """
 
-### Column
-
-`Column`s hold either `Number`s or `Symbol`s,
-      at some specific column `pos`.
-`Column`s have `txt` (the txt
-top of the column)..
-
-"""
+function Row(i) {
+  i.id = Id = Id+1
+  have(i,"raw")
+  have(i,"cooked")
+}
+function Row1(i,t,lst,     j,raw,cooked) {
+  for (j in lst) 
+    _Row1(i,t.cols.all[j],
+            lst[j],
+            j,t)
+}
+function _Row1(i,col,val,j,t) {
+  i.cooked[j] = i.raw[j] = val
+  Column1(col,val,j,t)
+  if (j in t.cols.num) 
+    i.cooked[j] = NumberBin(col.my.num, val)
+}
 function Column(i,     txt,pos) {
-  has(i,"my")
+  have(i,"my")
   i.adder= ""
   i.name = txt
   i.pos  = pos
@@ -49,9 +69,9 @@ function Column1(i,v,pos,t,  tmp) {
   @tmp(i.my,v)
 }
 function NumberFarcade(i) {
-  has(i,"remedian","Remedian")
-  has(i,"sample",  "Sample")
-  has(i,"num",     "Number")
+  have(i,"remedian","Remedian")
+  have(i,"sample",  "Sample")
+  have(i,"num",     "Number")
 }
 function NumberFarcade1(i,v) {
   if (Sample1(i.sample, v)) {
@@ -60,7 +80,7 @@ function NumberFarcade1(i,v) {
 }}
 function Sample(i,     most) {
   i.most= most ? most : 64
-  has(i,"all")
+  have(i,"all")
   i.n=0
 }
 function Sample1(i,v,    
@@ -77,7 +97,7 @@ function Sample1(i,v,
   return added
 }
 function Symbol(i) {
-  has(i,"count")
+  have(i,"count")
   i.mode = ""
   i.most = 0
 }
@@ -88,9 +108,10 @@ function Symbol1(i,v,     n) {
     i.most = n
 }}
 function Number(i) {
-  i.hi = -1e32
-  i.lo =  1e32
-  i.n  = i.mu = i.m2 = i.sd = 0
+  i.hi  = -1e32
+  i.lo  =  1e32
+  i.bins= 5
+  i.n   = i.mu = i.m2 = i.sd = 0
 }
 function Number1(i,v,          delta) {
   v    += 0
@@ -103,14 +124,19 @@ function Number1(i,v,          delta) {
   if (i.n > 1)
 	  i.sd = (i.m2/(i.n-1))^0.5
 }
-function NumberNorm(i,v,   tmp) {
+function NumberNorm(i,v) {
   if (v < i.lo) return 0
   if (v > i.hi) return 1
   return  (v - i.lo)/(i.hi - i.lo + 1e-31)
 }
+function NumberBin(i,v,   tmp) {
+  tmp = NumberNorm(i,v)
+  tmp = int(tmp*i.bins + 0.5) 
+  return tmp == i.bins ? --tmp : tmp
+}
 function Remedian(i,   k) {
-  has(i,"all")
-  has(i,"more")
+  have(i,"all")
+  have(i,"more")
   i.k = k ? k : 128
   i._median = ""
 }

@@ -35,7 +35,7 @@ function _readcsvHead(t,lst,i,
                       klassed,n,txt) {
   for(n in lst) {
     txt = lst[n]
-	 	has(t.cols.all,n)
+	 	have(t.cols.all,n)
     Column(t.cols.all[n],txt,n)
     if (txt ~ /^</)  {
        klassed++
@@ -52,12 +52,10 @@ function _readcsvHead(t,lst,i,
   if (!klassed)
 	   t.cols.klass[length(lst)]
 }
-function _readcsvRow(t,lst,   n,j,val) {
+function _readcsvRow(t,lst,   j) {
    j=length(t.rows)+1
-   for(n in lst) {
-	   t.rows[j].raw[n] = lst[n]
-     Column1(t.cols.all[n], lst[n] ,n,t)
-   }
+   have(t.rows,j,"Row")
+   Row1(t.rows[j], t, lst)
 }
 ```
 
