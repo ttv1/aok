@@ -37,7 +37,7 @@ function closest(i,a,   zero,bt,
   return out
 }
 function furthest(i,a) {
-  return closest(i,a, "-1", "gt")
+  return closest(i,a, -1, "gt")
 }
 function Distance(i,p) {
   i.d= 0
