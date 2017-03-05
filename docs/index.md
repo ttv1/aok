@@ -21,6 +21,15 @@ expands to
 emp["name"]["lname"]
 ```
 
+By the way, the magic text substitution  for implementing the above is:
+
+```
+gensub( /\.([a-zA-Z_])([a-zA-Z0-9_]*)/, 
+        "[\"\\1\\2\"]",
+	"g",
+	$0
+     )
+```
 
 The following magic function creates a nested list attached at position
 `key` in array `lst`. 
