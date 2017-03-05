@@ -179,16 +179,70 @@ function empty(a) { split("",a,"") }
 
 ## Install, configure, test
 
-To install AOK on LINUX or Mac:
+Get the code
 
-1. Download the files  `aok` and `aok.rc` from `http://github.com/ttv1/aok`. 
-2. Change the mode of the file using `chmod +x aok`.
+- `git clone http://github.com/ttv1/aok`
+- or download `https://github.com/ttv1/aok/archive/master.zip`
 
 To configure, edit the file `aok.rc`. Here's my current file:
 
-```
-MyName="'Tim Menzies'"
-MyEmail=""'tim@menzies.us'"
-```
+    MyName="'Tim Menzies'"
+    MyEmail=""'tim@menzies.us'"
+    Tmp=_var/tmp # where to write temporaroes
+    Docs=docs    # where to write the generated markdown files
+    Awk=_var/awk # where to keep the generated awk files
+
+Ensure the file `aok` is executable
+
+    chmod +a aok
 
 To see if this runs, try
+
+```
+./aok libok
+```
+
+If that works, you should see some test output like:
+
+    _ltgt	1	1
+    _ltgt	0	0
+    _ltgt	1	1
+    _ltgt	0	0
+    _med	5.5	5.5
+    _med	4.5	4.5
+    _med	2	2
+    _med	4	4
+
+To write your own code:
+
+- Add a `x.aok` file
+- Optionally, if you like `vim` add this line to the top of your file:<br>
+  `# /* vim: set filetype=awk ts=2 sw=2 sts=2 et : */`
+- Add in `@include lib.aok` to the top of your file.
+- Add a description string to the top of your file. 
+
+Your file should look like this:
+
+```
+# /* vim: set filetype=awk ts=2 sw=2 sts=2 et : */
+
+"""
+
+## My First File
+
+How does this look.
+
+"""
+
+@include "lib"
+
+BEGIN { yourcodeStartshere() }
+```
+
+Then see if it runs
+
+```
+./aok x.aok
+```
+
+
