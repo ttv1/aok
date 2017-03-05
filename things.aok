@@ -8,9 +8,12 @@ Here's a set of `Thing`s to read a csv file
 whose first row is  list of names (one for each
 column header).
 
-In the following, `x=y` means that `x` is initialized to `y`.
-When `y` is an term in the left hand column, then `x` is
-initialized to the structure of the term.
+In the following:
+
+- `x=y` means that `x` is initialized to `y`;
+-  `x:` means `x` is a nested array;
+- `x:y` means `x` is a nested sturcutre of object `y`.
+
 
 Object       |  Keys
 -------------|----------------------------------
@@ -27,12 +30,23 @@ Number       |  hi=-1e32  ,lo=1e32  ,bins=5 ,n=0 ,mu=0 ,m2=0 ,sd=0
 
 """
 @include "lib"
+"""
 
+### Row
+
+`Row`s have an `id`, a list of `raw` values and a second `cooked` list.
+"""
 function Row(i) {
   i.id = Id = Id+1
   have(i,"raw")
   have(i,"cooked")
 }
+"""
+
+When a new `Row` is created in table `t` from a `lst` of values
+then each value is passed by the associated `Column`.
+
+"""
 function Row1(i,t,lst,     j,raw,cooked) {
   for (j in lst) 
     _Row1(i,t.cols.all[j],
