@@ -88,7 +88,7 @@ function NumberFarcade1(i,v) {
 }}
 ```
 
-The interface to this object is the `NumberFarcade1`` function which
+The interface to this object is the `NumberFarcade1` function which
 throws values `v` to the `Sample` object. It it reports that this value was kept,
 then 	we update the `Remedian` and `Number` object. 
 
