@@ -11,16 +11,16 @@ initialized to the structure of the term.
 
 Object       |  Keys
 -------------|----------------------------------
-Table        |  rows*  cols*Columns
-Columns      |  all*   more*  less* sym* num* indep* klass*
-Row          |  id        raw*    cooked*
-Column       |  my*NumberFarcade_or_Symbol        adder     name pos
-NumberFarcade|  remedian*Remedian    sample*Sample num*Number
-Remedian     |  all*    more*  k=128   _median
-Sample       |  most=64  all*   n=0
-Symbol       |  count*  mode     most=0
-Distance     |  d=0       n=1e-32  p=2
-Number       |  hi=-1e32  lo=1e32  bins=5 n=0 mu=0 m2=0 |sd=0
+Table        |  rows:  ,cols:Columns
+Columns      |  all:   ,more:  ,less: ,sym: ,num: ,indep: ,klass:
+Row          |  id        ,raw:    ,cooked:
+Column       |  my:NumberFarcade_or_Symbol        ,adder     ,name ,pos
+NumberFarcade|  remedian:Remedian    ,sample:Sample ,num:Number
+Remedian     |  all:    ,more:  ,k=128   ,_median
+Sample       |  most=64  ,all:   ,n=0
+Symbol       |  count:  ,mode     ,most=0
+Distance     |  d=0       ,n=1e-32  ,p=2
+Number       |  hi=-1e32  ,lo=1e32  ,bins=5 ,n=0 ,mu=0 ,m2=0 ,sd=0
 
 
 ```awk 
