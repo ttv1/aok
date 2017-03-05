@@ -1,4 +1,6 @@
-# AOK: Nested Data Strcutures in AWK
+# Tutorial
+
+(For instalation notes, see end of file.)
 
 AOK is a pre-processor to AWK code that adds:
 
@@ -189,5 +191,4 @@ MyName="'Tim Menzies'"
 MyEmail=""'tim@menzies.us'"
 ```
 
-
-## Test
+To see if this runs, try
