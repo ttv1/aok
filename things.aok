@@ -44,7 +44,9 @@ function Row(i) {
 """
 
 When a new `Row` is created in table `t` from a `lst` of values
-then each value is passed by the associated `Column`.
+then each value is passed by the associated `Column` (so it can update
+its summary of that column). The `lst` values are written into `raw`
+and a descretized version is written into `cooked`.
 
 """
 function Row1(i,t,lst,     j,raw,cooked) {
@@ -59,12 +61,28 @@ function _Row1(i,col,val,j,t) {
   if (j in t.cols.num) 
     i.cooked[j] = NumberBin(col.my.num, val)
 }
+"""
+
+### Column
+
+Columns watch over a stream of incoming variables.
+Each column knows its name `txt` and column `pos` position.
+
+"""
 function Column(i,     txt,pos) {
   have(i,"my")
   i.adder= ""
   i.name = txt
   i.pos  = pos
 }
+"""
+
+The very first value that is not an unknown value (marked with a `?`),
+is used to decide if this column holds numeric or symbolic values.
+
+Subsequently, new values are passed to that object.
+
+"""
 function Column1(i,v,pos,t,  tmp) {
   if (v=="?") return
   if ( ! length(i.my) ) {
@@ -80,6 +98,20 @@ function Column1(i,v,pos,t,  tmp) {
   tmp=i.adder
   @tmp(i.my,v)
 }
+"""
+
+### NumerFarcade
+
+The `NumberFarcade` .
+object uses three nested objects that  can watch over a very long stream of data:
+
+- A `Sample` object holds a random sample of the data see too date;
+- A `Number` object incrementally maintains the standard deviation of the numbers seen so far;
+- A `Remedian` object incrementally maintains the median of the numbers see so far.
+
+The constructor function for `NumberFarcade` looks like this:
+
+"""
 function NumberFarcade(i) {
   have(i,"remedian","Remedian")
   have(i,"sample",  "Sample")
@@ -90,24 +122,41 @@ function NumberFarcade1(i,v) {
     Remedian1(i.remedian,v)
     Number1(i.num, v)
 }}
+"""
+
+### Sample
+
+`Sample  holds a random sample of the data see too date.
+
+"""
 function Sample(i,     most) {
-  i.most= most ? most : 64
-  have(i,"all")
+  i.most= most ? most : 64 # keep up to 64 items
+  have(i,"all")            # i.all holds the kept value
   i.n=0
 }
 function Sample1(i,v,    
                  added,len) {
   i.n++
   len=length(i.all)
-  if (len < i.most) {
+  if (len < i.most) {  # the cache is not full, add something
     push(i.all,v)
     added=1
-  } else if (rand() < len/i.n) {  
+  } else if (rand() < len/i.n) {  # else, sometimes, add "v"
     i.all[ int(len*rand()) + 1 ] = v
     added=1
   }
   return added
 }
+"""
+
+### Symbol
+
+The `Symbol` constructor initializes
+something that tracks string frequency. Also, it keeps a handle
+on the most frquent string seen so far (the `mode`).
+The interface to `Symbol`s is the `Symbol1` function.
+
+"""
 function Symbol(i) {
   have(i,"count")
   i.mode = ""
@@ -119,6 +168,20 @@ function Symbol1(i,str,     n) {
     i.mode = str
     i.most = n
 }}
+"""
+
+### Number
+
+The `Number` object uses an algorithm from Knuth to incrementally
+maintans a value for
+
+- standard deviation `sd` value ;
+- the `hi`ghest and `lo`west value seen so far;
+- As well as the mean value `mu`.
+
+The inteface to `Number` objects is the `Number1` function:
+
+"""
 function Number(i) {
   i.hi  = -1e32
   i.lo  =  1e32
@@ -146,6 +209,17 @@ function NumberBin(i,v,   tmp) {
   tmp = int(tmp*i.bins + 0.5) 
   return tmp == i.bins ? --tmp : tmp
 }
+"""
+
+### Remedian
+
+The `Remedian` object accumulates some numbers, works out their median,
+then passes that to a recusive `Remedian` object.  This means that,
+_n_ levels in, that object holds the median of the median of the median (_n_
+levels in). Consquently, a linear list of size _n*k_ can hold the median of
+an exponential set of _k<sup>n</sup>_ numbers.
+
+"""
 function Remedian(i,   k) {
   have(i,"all")
   have(i,"more")
