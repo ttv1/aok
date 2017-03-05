@@ -23,7 +23,7 @@ files into a sub-directory.
 ### Literate Programming
 
 Code needs commentary-- not too much-- that helps
-programmers to understand the code.
+other programmers to understand the code.
 I use markdown interwoven with the code in multi-line 
 comments (beginning and end marked with `===`).  Using 
 a pre-prossor, I auto-generate my code and markdown files.
@@ -64,7 +64,7 @@ _var
 ```
 Note that the code-as-markdown likes in `docs` and
 the ready-to-run AWK
-likes in `_var/awk/*.awk'
+likes in `_var/awk/*.awk`.
 
 ### Change How I call AWK
 
