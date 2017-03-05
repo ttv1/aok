@@ -70,6 +70,16 @@ profile() {
 run() {
   gawk --source 'BEGIN { '"$*"'}'
 }
+tests() {
+  for i in *ok.aok; do
+    f=${i%.*}
+    echo ""
+    echo "### --- $f -------------"
+    ./aok $f
+  done | tee $Tmp/test.out
+  echo -n "PASSED "; grep -c PASSED $Tmp/test.out
+  echo -n "FAILED "; grep -c FAILED $Tmp/test.out
+}
 ready() {
   for aok1 in *.aok; do
   	awk1=$Awk/${aok1%.*}.awk
@@ -102,6 +112,7 @@ ready
 if   [ "$1" == "new"     ]; then new;
 elif [ "$1" == "old"     ]; then old;
 elif [ "$1" == "profile" ]; then profile;
+elif [ "$1" == "tests"   ]; then tests;
 elif [ "$1" == "do"      ]; then 
   shift
   run "$*"

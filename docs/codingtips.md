@@ -86,8 +86,7 @@ thata have gone rogue, now I:
 - Always define globals as MixedCase starting an Uppercase letter.
 - Always call AWK with `--dump-variables`
 - Check that dump afterwards for globals,
-  ignoring the AWK built-ins (that use many uppercase
-  letters).with mixed
+  ignoring the AWK built-ins.
 
 ```
 if [ -f "$Tmp/awkvars.out" ]
@@ -134,7 +133,7 @@ function oks(tests,   a,f,i,n) {
      @f()
 }}
 function ok(want,got) {
-   print want "\t" got (want == got ?"" : "\tFAIL")
+   print want "\t" got (want == got ?"\tPASSED" : "\tFAILED")
 }
 ```
 
