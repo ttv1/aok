@@ -2,7 +2,7 @@
 # table ok
 
 
-```awk 
+```c 
 
 @include "table"
 @include "readcsv"

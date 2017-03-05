@@ -4,7 +4,7 @@
 Checking things.
 
 
-```awk 
+```c 
 
 @include "things"
 

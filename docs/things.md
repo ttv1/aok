@@ -26,7 +26,7 @@ Distance     |  d=0       ,n=1e-32  ,p=2
 Number       |  hi=-1e32  ,lo=1e32  ,bins=5 ,n=0 ,mu=0 ,m2=0 ,sd=0
 
 
-```awk 
+```c 
 @include "lib"
 ```
 
@@ -35,7 +35,7 @@ Number       |  hi=-1e32  ,lo=1e32  ,bins=5 ,n=0 ,mu=0 ,m2=0 ,sd=0
 
 `Row`s have an `id`, a list of `raw` values and a second `cooked` list.
 
-```awk 
+```c 
 function Row(i) {
   i.id = Id = Id+1
   have(i,"raw")
@@ -50,7 +50,7 @@ its summary of that column). The `lst` values are written into `raw`
 and a descretized version is written into `cooked`.
 
 
-```awk 
+```c 
 function Row1(i,t,lst,     j,raw,cooked) {
   for (j in lst) 
     _Row1(i,t.cols.all[j],
@@ -72,7 +72,7 @@ Columns watch over a stream of incoming variables.
 Each column knows its name `txt` and column `pos` position.
 
 
-```awk 
+```c 
 function Column(i,     txt,pos) {
   have(i,"my")
   i.adder= ""
@@ -88,7 +88,7 @@ is used to decide if this column holds numeric or symbolic values.
 Subsequently, new values are passed to that object.
 
 
-```awk 
+```c 
 function Column1(i,v,pos,t,  tmp) {
   if (v=="?") return
   if ( ! length(i.my) ) {
@@ -119,7 +119,7 @@ object uses three nested objects that  can watch over a very long stream of data
 The constructor function for `NumberFarcade` looks like this:
 
 
-```awk 
+```c 
 function NumberFarcade(i) {
   have(i,"remedian","Remedian")
   have(i,"sample",  "Sample")
@@ -138,7 +138,7 @@ function NumberFarcade1(i,v) {
 `Sample`  holds a random sample of the data see too date.
 
 
-```awk 
+```c 
 function Sample(i,     most) {
   i.most= most ? most : 64 # keep up to 64 items
   have(i,"all")            # i.all holds the kept value
@@ -168,7 +168,7 @@ on the most frquent string seen so far (the `mode`).
 The interface to `Symbol`s is the `Symbol1` function.
 
 
-```awk 
+```c 
 function Symbol(i) {
   have(i,"count")
   i.mode = ""
@@ -195,7 +195,7 @@ maintans a value for
 The inteface to `Number` objects is the `Number1` function:
 
 
-```awk 
+```c 
 function Number(i) {
   i.hi  = -1e32
   i.lo  =  1e32
@@ -235,7 +235,7 @@ levels in). Consquently, a linear list of size _n*k_ can hold the median of
 an exponential set of _k<sup>n</sup>_ numbers.
 
 
-```awk 
+```c 
 function Remedian(i,   k) {
   have(i,"all")
   have(i,"more")

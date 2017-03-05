@@ -67,7 +67,7 @@ likes in `_var/awk/*.awk`.
 
 To make all that work, I change how I call AWK such
 that it knows to add `_var/awk` to its path:
-```
+```sh
 AWKPATH="$Awk:$AWKPATH" gawk          \
        --dump-variables=$Tmp/awkvars.out \
        --profile=$Tmp/awkprof.out         \
@@ -88,7 +88,7 @@ thata have gone rogue, now I:
 - Check that dump afterwards for globals,
   ignoring the AWK built-ins.
 
-```
+```sh
 if [ -f "$Tmp/awkvars.out" ]
 then
   egrep -v '[A-Z][A-Z]' $Tmp/awkvars.out |
@@ -107,7 +107,7 @@ that tests that file:
 
 For example, here's a very simple `ok` file:
 
-```
+```c
 @include "codingtips"
 function _top1(a) { ok(0, 10 == 10) }
 BEGIN { oks("_top1") }
@@ -124,7 +124,7 @@ Here, `_test1` is a function that calls `ok` to
 report if we `got` what we `want`ed.
 
 
-```awk 
+```c 
 function oks(tests,   a,f,i,n) {
    n = split(tests,a,",")
    for(i=1;i<=n;i++) {
@@ -155,7 +155,7 @@ Firsly, I carry around my state as nested arrays, the
 structure of which I initialize in constructors.
 
 
-```awk 
+```c 
 function Table(i) {
    have(i,"rows")
    have(i,"cols","Cols")
@@ -168,7 +168,7 @@ The `have` function ensures that some variable is a nested array with certain ke
 
 
 
-```awk 
+```c 
 function have(lst,key,fun)   { 
   lst[key][1];    
   delete lst[key][1]
@@ -184,7 +184,7 @@ the `Cols` constructor was offered as the way to initialize
 the `cols` key of a `Table`:
 
 
-```awk 
+```c 
 function Cols(i) {
   i["n"]   = 0
   i["sum"] = 0
@@ -210,7 +210,7 @@ Here, `t` is the `Table` initialized above and
 
 
 
-```awk 
+```c 
 function readcsv(file,t,line,f0,f1,    str,a,n) {
   str = @line(file)
   while(str != -1) {
@@ -268,6 +268,6 @@ function _readcsvRow(t,lst,   j) {
 
 AWK locals can be defined as extra function arguments.
 
-```awk 
+```c 
 ```
 

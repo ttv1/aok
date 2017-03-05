@@ -41,7 +41,7 @@ makedoc() {
     else {
       if (In)  {
         print ""
-        print "```awk " $0
+        print "```c " $0
       } else {
         print "```" $0
         print ""

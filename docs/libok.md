@@ -4,7 +4,7 @@
 Checking lib
 
 
-```awk 
+```c 
 
 @include "lib"
 

@@ -2,7 +2,7 @@
 # Test suite: How I Write AWK Code
 
 
-```awk 
+```c 
 @include "codingtips"
 
 function _top1(a) { ok(0, 10 == 10) }
