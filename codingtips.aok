@@ -3,8 +3,11 @@
 """
 ## How I Write AWK Code
 
-I first starting using AWK in 1985. After 30+ years
-of using the language, here are some of the tricks 
+I've been writing AWK
+code for 
+decades.
+After all that time,
+here are some of the tricks 
 I've learned.
 
 ## Share Code, On-line
@@ -19,15 +22,22 @@ files into a sub-directory.
 
 ### Literate Programming
 
-My code comes with extensive commentary-- large sections
-of  markdown that are interwoven with the code and pulled
-out by a pre-prossor.  To stop AWK tripping over
-the code+comments files, I rename my source files, say, `.aok`
-and add some modeline into the top of my files so it
-knows what it is editting. In VIM, that modeline is
+Code needs commentary-- not too much-- that helps
+programmers to understand the code.
+
+I use 
+markdown interwoven with the code in multi-line
+comments (beginning and end marked with `===`).
+Using a 
+pre-prossor, I auto-generate my code and
+markdown files.  
 
      # /* vim: set filetype=awk ts=2 sw=2 sts=2 et : */
 
+My pre-processor which I call 
+[aok](https://github.com/ttv1/aok/blob/master/aok),
+inputs `*.aok` files then generates
+`*.awk` and `*.md` files.
 So my standard directory structure 
 looks like this: 
 
