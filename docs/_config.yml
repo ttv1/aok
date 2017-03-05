@@ -1,5 +1,5 @@
 theme: jekyll-theme-minimal
-highlighter: rogue
+highlighter: rouge
 title: AOK is AWK plus objects
 description: |
    Adds some simple abstract data types to 
