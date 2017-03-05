@@ -11,11 +11,11 @@ BEGIN { FS=OFS="," }
 function lt(a,b) { return a < b }
 function gt(a,b) { return a > b }
 
-function have(a,b,c)   { 
-  a[b][1];    
-  delete a[b][1]
-  if (c)
-    @c(a[b])
+function have(lst,key,fun)   { 
+  lst[key][1];    
+  delete lst[key][1]
+  if (fun)
+    @fun(lst[key])
 }
 function empty(a) { split("",a,"") }
 function push(i,v) { i[length(i) + 1] = v }

@@ -105,10 +105,10 @@ function Symbol(i) {
   i.mode = ""
   i.most = 0
 }
-function Symbol1(i,v,     n) {
-  n = ++i.counts[v]
+function Symbol1(i,str,     n) {
+  n = ++i.counts[str]
   if (n > i.most) {
-    i.mode = v
+    i.mode = str
     i.most = n
 }}
 function Number(i) {
