@@ -13,19 +13,19 @@ AOK is a pre-processor to AWK code that adds:
 
 As an example of the last point,
 
-```
+```c
 emp.name.lname
 ```
 
 expands to
 
-```
+```c
 emp["name"]["lname"]
 ```
 
 By the way, the magic text substitution  for implementing the above is:
 
-```
+```c
 gensub( /\.([a-zA-Z_])([a-zA-Z0-9_]*)/, 
         "[\"\\1\\2\"]",
 	"g",
@@ -36,7 +36,7 @@ gensub( /\.([a-zA-Z_])([a-zA-Z0-9_]*)/,
 The following magic function creates a nested list attached at position
 `key` in array `lst`. 
 
-```cpp
+```c
 function have(lst,key,fun)   { 
   lst[key][1];    
   delete lst[key][1]
@@ -54,7 +54,7 @@ something that tracks string frequency. Also, it keeps a handle
 on the most frquent string seen so far (the `mode`).
 The interface to `Symbol`s is the `Symbol1` function.
 
-```awk
+```c
 function Symbol(i) {
   have(i,"count")
   i.mode = ""
@@ -77,7 +77,7 @@ This object uses three nested objects that  can watch over a very long stream of
 
 The constructor function for `NumberFarcade` looks like this:
 
-```awk
+```c
 function NumberFarcade(i) {
   have(i,"remedian","Remedian")
   have(i,"sample",  "Sample")
@@ -94,7 +94,7 @@ The interface to this object is the `NumberFarcade1` function which
 throws values `v` to the `Sample` object. It it reports that this value was kept,
 then 	we update the `Remedian` and `Number` object. 
 
-```awk
+```c
 function Sample(i,     most) {
   i.most= most ? most : 64 # keep up to 64 items
   have(i,"all")            # i.all holds the kept values
@@ -124,7 +124,7 @@ maintans a value for
 
 The inteface to `Number` objects is the `Number1` function:
 
-```awk
+```c
 function Number(i) {
   i.hi  = -1e32
   i.lo  =  1e32
@@ -150,7 +150,7 @@ _n_ levels in, that object holds the median of the median of the median (_n_
 levels in). Consquently, a linear list of size _n*k_ can hold the median of
 an exponential set of _k<sup>n</sup>_ numbers.
 
-```awk
+```c
 function Remedian(i,   k) {
   have(i,"all")
   have(i,"more")
