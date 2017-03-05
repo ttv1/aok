@@ -7,9 +7,7 @@ description: |
    By Tim Menzies
    <a href="http://menzies.us">http://menzies.us</a>. 
    See also:
-   <p><ul>
-   <li><a href=lib>lib</a></li>
-   <li><a href=readcsv>readcsv</a></li>
-   <li><a href=table>table</a></li>
-   <li><a href=things>things</a></li>
-   </ul></p>
+   <a href=lib>lib</a> |
+   <a href=readcsv>readcsv</a> |
+   <a href=table>table</a> |
+   <a href=things>things</a>
