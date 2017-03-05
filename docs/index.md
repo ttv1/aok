@@ -25,7 +25,7 @@ emp["name"]["lname"]
 The following magic function creates a nested list attached at position
 `key` in array `lst`. 
 
-```awk
+```gawk
 function have(lst,key,fun)   { 
   lst[key][1];    
   delete lst[key][1]
