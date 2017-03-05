@@ -1,13 +1,89 @@
 # /* vim: set filetype=awk ts=2 sw=2 sts=2 et : */
 
 """
-# How I Write AWK Code
+## How I Write AWK Code
 
 I first starting using AWK in 1985. After 30+ years
 of using the language, here are some of the tricks 
 I've learned.
 
-## Test Suites
+## Share Code, On-line
+
+My code is on-line from day1 is some public Gitbub repo.
+
+Github now can make any repo a website,
+serving up all the markdownfiles in a `docs` sub-directory.
+That means to write a site, like the one you are reading
+right now, is just a matter of adding in some markdown
+files into a sub-directory.
+
+### Literate Programming
+
+My code comes with extensive commentary-- large sections
+of  markdown that are interwoven with the code and pulled
+out by a pre-prossor.  To stop AWK tripping over
+the code+comments files, I rename my source files, say, `.aok`
+and add some modeline into the top of my files so it
+knows what it is editting. In VIM, that modeline is
+
+     # /* vim: set filetype=awk ts=2 sw=2 sts=2 et : */
+
+So my standard directory structure 
+looks like this: 
+
+```
+manager.sh
+file1.aok
+file2.aok
+...
+docs
+  file1.md
+  file2.md
+  ...
+_var
+  awk
+    file1.awk
+  tmp
+    
+```
+Note that the code-as-markdown likes in `docs` and
+the ready-to-run AWK
+likes in `_var/awk/*.awk'
+
+### Change How I call AWK
+
+To make all that work, I change how I call AWK such
+that it knows to add `_var/awk` to its path:
+```
+AWKPATH="$Awk:$AWKPATH" gawk          \
+       --dump-variables=$Tmp/awkvars.out \
+       --profile=$Tmp/awkprof.out         \
+       -f $1.awk
+vars;
+```
+
+### Debugging tools
+
+AWK's variables are global by default unless declared as 
+extra arguments in function headers. After spending
+too much of my life tracking down bugs from globals
+thata have gone rogue, now I:
+
+- Always define locals starting with a lower case letter
+- Always define globals as MixedCase starting an Uppercase letter.
+- Always call AWK with `--dump-variables`
+- Check that dump afterwards for globals,
+  ignoring the AWK built-ins (that use many uppercase
+  letters).with mixed
+
+```
+if [ -f "$Tmp/awkvars.out" ]
+then
+  egrep -v '[A-Z][A-Z]' $Tmp/awkvars.out |
+  sed 's/^/W> rogue local: /'
+fi
+```
+### Test Suites
 
 All my files `code.awk` have a campanion files `codeok.awk`
 that tests that file:
@@ -21,9 +97,7 @@ For example, here's a very simple `ok` file:
 
 ```
 @include "codingtips"
-
 function _top1(a) { ok(0, 10 == 10) }
-
 BEGIN { oks("_top1") }
 ```
 
@@ -56,9 +130,9 @@ testName <tab> expected <tab> got
 ```
 
 and for triples where expected != got, there is an appended
-"FAIL" file
+"FAIL" file. 
 
-## Less Globals
+### Less Globals
 
 `N-1` globals is usually better than `N`. So I use many
 tricks to avoid the need for global variables.
@@ -98,7 +172,7 @@ function Cols(i) {
 }
 """
 
-## Less `/pattern/ {action}`
+### Much Less `/pattern/ {action}`
 
 Most of my code makes no use of pattern-directed
 programming.  Why? Well, you can't build libraries of
