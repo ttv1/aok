@@ -34,7 +34,7 @@ gensub( /\.([a-zA-Z_])([a-zA-Z0-9_]*)/,
 The following magic function creates a nested list attached at position
 `key` in array `lst`. 
 
-```python
+```awk
 function have(lst,key,fun)   { 
   lst[key][1];    
   delete lst[key][1]
