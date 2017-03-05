@@ -2,3 +2,4 @@ theme: jekyll-theme-minimal
 highlighter: rogue
 title: AOK is AWK plus objects
 description: Adds simple abstract data types to AWK plue nested data structures
+github.owner_name: Tim Menzies 
