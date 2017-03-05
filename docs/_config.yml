@@ -4,4 +4,10 @@ title: AOK is AWK plus objects
 description: |
    Adds simple abstract data types to 
    AWK. Also offers nested data structures. 
-   By Tim Menzies http://menzies.us
+   By Tim Menzies http://menzies.us. See also
+  <ul>
+  <li><a href=lib>lib</a></li>
+  <li><a href=readcsv>readcsv</a></li>
+  <li><a href=table>table</a></li>
+  <li><a href=things>things</a></li>
+  </ul>

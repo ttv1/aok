@@ -1,0 +1,6 @@
+echo "  <ul>"
+for i in `ls *.aok`; do
+   f=${i%.*}
+   echo "  <li><a href=$f>$f</a></li>"
+done | grep -v 'ok>'
+echo "  </ul>"
