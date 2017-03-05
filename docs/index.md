@@ -171,7 +171,9 @@ function Remedians(i) {
     i._median = median(i.all)
   return i._median
 }
+function empty(a) { split("",a,"") }
 ```
+
 
 ## Install, configure, test
 
