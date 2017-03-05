@@ -1,38 +1,31 @@
 
-# Things (nums and sys and stuff)
+# Things 
+
+Here's a set of `Thing`s to read a csv file
+whose first row is  list of names (one for each
+column header).
+
+In the following, `x=y` means that `x` is initialized to `y`.
+When `y` is an term in the left hand column, then `x` is
+initialized to the structure of the term.
+
+Object       |  
+-------------|-----------|----------|---------|-------|-------|---------|----
+Table        |  rows=[]  | cols=Columns
+Columns      |  all=[]   | more=[]  | less=[] |sym=[] |num=[] |indep=[] |klass=[]
+Row          |  id       | raw=[]   | cooked=[]
+Column       |  my       | adder    | name pos
+my           |  NumberFarcade=[] or Symbol=[]
+NumberFarcade|  remedian=Remedian   | sample=Sample |num=Number
+Remedian     |  all=[]   | more=[]  |k=128  | _median
+Sample       |  most=64  | all=[]   |n=0
+Symbol       |  count=[] | mode     |most=0
+Distance     |  d=0      | n=1e-32  |p=2
+Number       |  hi=-1e32 | lo=1e32  |bins=5 |n=0 |mu=0 |m2=0 |sd=0
 
 
 ```awk 
-
 @include "lib"
-
-```
-
-
-## Sample
-
-A thing for catching many values, but keepig
-only  small sample of them.
-
-Table         [rows] [cols]:Columns
-Columns       [all] [more] [less] [sym] [num] [indep] [klass]
-Row           id [raw] [cooked]
-
-Column        my adder name pos
-my            [NumberFarcade] 
-              | [Symbol]
-NumberFarcade [remedian]:Remedian [sample]:Sample [num]:Number
-
-Remedian      [all] [more] k=128 _median
-
-Sample        most=64 [all] n=0
-Symbol        [count] mode most=0
-
-Distance      d=0 n=1e-32 p=2
-Number        hi=-1e32 lo=1e32 bins=5 n=0 mu=0 m2=0 sd=0
-
-
-```awk 
 
 function Row(i) {
   i.id = Id = Id+1
