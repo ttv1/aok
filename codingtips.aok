@@ -38,6 +38,13 @@ My pre-processor which I call
 [aok](https://github.com/ttv1/aok/blob/master/aok),
 inputs `*.aok` files then generates
 `*.awk` and `*.md` files.
+
+```
+       /--- x.md
+x.aok /
+      \ 
+       \--- x.awk
+```
 So my standard directory structure 
 looks like this: 
 
