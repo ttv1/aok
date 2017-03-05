@@ -6,8 +6,5 @@ description: |
    AWK. Also offers nested data structures. 
    By Tim Menzies
    <a href="http://menzies.us">http://menzies.us</a>. 
-   <p>See also:
-   <a href=lib>lib</a> |
-   <a href=readcsv>readcsv</a> |
-   <a href=table>table</a> |
+   <p>See also
    <a href=things>things</a></p>
