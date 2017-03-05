@@ -4,7 +4,7 @@
 Standard background stuff.
 
 
-```awk 
+```c 
 
 BEGIN { FS=OFS="," }
 
@@ -43,7 +43,7 @@ function median(lst,
 Print nested array.
 
 
-```awk 
+```c 
 
 function o(l,prefix,order,
            indent,

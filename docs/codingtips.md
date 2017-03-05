@@ -125,7 +125,7 @@ Here, `_test1` is a function that calls `ok` to
 report if we `got` what we `want`ed.
 
 
-```awk 
+```c 
 function oks(tests,   a,f,i,n) {
    n = split(tests,a,",")
    for(i=1;i<=n;i++) {
@@ -156,7 +156,7 @@ Firsly, I carry around my state as nested arrays, the
 structure of which I initialize in constructors.
 
 
-```awk 
+```c 
 function Table(i) {
    have(i,"rows")
    have(i,"cols","Cols")
@@ -169,7 +169,7 @@ The `have` function ensures that some variable is a nested array with certain ke
 
 
 
-```awk 
+```c 
 function have(lst,key,fun)   { 
   lst[key][1];    
   delete lst[key][1]
@@ -185,7 +185,7 @@ the `Cols` constructor was offered as the way to initialize
 the `cols` key of a `Table`:
 
 
-```awk 
+```c 
 function Cols(i) {
   i["n"]   = 0
   i["sum"] = 0
@@ -211,7 +211,7 @@ Here, `t` is the `Table` initialized above and
 
 
 
-```awk 
+```c 
 function readcsv(file,t,line,f0,f1,    str,a,n) {
   str = @line(file)
   while(str != -1) {
@@ -269,6 +269,6 @@ function _readcsvRow(t,lst,   j) {
 
 AWK locals can be defined as extra function arguments.
 
-```awk 
+```c 
 ```
 

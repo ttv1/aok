@@ -2,7 +2,7 @@
 # Table (nums and sys and stuff)
 
 
-```awk 
+```c 
 
 @include "lib"
 @include "things"
