@@ -25,7 +25,7 @@ emp["name"]["lname"]
 The following magic function creates a nested list attached at position
 `key` in array `lst`. 
 
-```gawk
+```cpp
 function have(lst,key,fun)   { 
   lst[key][1];    
   delete lst[key][1]
@@ -43,7 +43,7 @@ something that tracks string frequency. Also, it keeps a handle
 on the most frquent string seen so far (the `mode`).
 The interface to `Symbol`s is the `Symbol1` function.
 
-```awk
+```cpp
 function Symbol(i) {
   have(i,"count")
   i.mode = ""
@@ -66,7 +66,7 @@ This object uses three nested objects that  can watch over a very long stream of
 
 The constructor function for `NumberFarcade` looks like this:
 
-```awk
+```cpp
 function NumberFarcade(i) {
   have(i,"remedian","Remedian")
   have(i,"sample",  "Sample")
@@ -83,10 +83,10 @@ The interface to this object is the `NumberFarcade1`` function which
 throws values `v` to the `Sample` object. It it reports that this value was kept,
 then 	we update the `Remedian` and `Number` object. 
 
-```awk
+```cpp
 function Sample(i,     most) {
-  i.most= most ? most : 64     # keep up to 64 items
-  have(i,"all")                # i.all is where we hold the kept values
+  i.most= most ? most : 64 # keep up to 64 items
+  have(i,"all")            # i.all holds the kept values
   i.n=0
 }
 function Sample1(i,v,    
@@ -113,7 +113,7 @@ maintans a value for
 
 The inteface to `Number` objects is the `Number1` function:
 
-```awk
+```cpp
 function Number(i) {
   i.hi  = -1e32
   i.lo  =  1e32
@@ -139,7 +139,7 @@ _n_ levels in, that object holds the median of the median of the median (_n_
 levels in). Consquently, a linear list of size _n*k_ can hold the median of
 an exponential set of _k<sup>n</sup>_ numbers.
 
-```awk
+```cpp
 function Remedian(i,   k) {
   have(i,"all")
   have(i,"more")
