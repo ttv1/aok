@@ -67,7 +67,7 @@ likes in `_var/awk/*.awk`.
 
 To make all that work, I change how I call AWK such
 that it knows to add `_var/awk` to its path:
-```
+```sh
 AWKPATH="$Awk:$AWKPATH" gawk          \
        --dump-variables=$Tmp/awkvars.out \
        --profile=$Tmp/awkprof.out         \
@@ -89,7 +89,7 @@ thata have gone rogue, now I:
   ignoring the AWK built-ins (that use many uppercase
   letters).with mixed
 
-```
+```sh
 if [ -f "$Tmp/awkvars.out" ]
 then
   egrep -v '[A-Z][A-Z]' $Tmp/awkvars.out |
@@ -108,7 +108,7 @@ that tests that file:
 
 For example, here's a very simple `ok` file:
 
-```
+```c
 @include "codingtips"
 function _top1(a) { ok(0, 10 == 10) }
 BEGIN { oks("_top1") }
