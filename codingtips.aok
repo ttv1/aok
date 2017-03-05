@@ -24,15 +24,9 @@ files into a sub-directory.
 
 Code needs commentary-- not too much-- that helps
 programmers to understand the code.
-
-I use 
-markdown interwoven with the code in multi-line
-comments (beginning and end marked with `===`).
-Using a 
-pre-prossor, I auto-generate my code and
-markdown files.  
-
-     # /* vim: set filetype=awk ts=2 sw=2 sts=2 et : */
+I use markdown interwoven with the code in multi-line 
+comments (beginning and end marked with `===`).  Using 
+a pre-prossor, I auto-generate my code and markdown files.
 
 My pre-processor which I call 
 [aok](https://github.com/ttv1/aok/blob/master/aok),
@@ -40,11 +34,16 @@ inputs `*.aok` files then generates
 `*.awk` and `*.md` files.
 
 ```
-       /--- x.md
-x.aok /
-      \ 
-       \--- x.awk
+                   /--- x.md
+x.aok --> aok --> /
+                  \ 
+                   \--- x.awk
 ```
+Note that I need to trick my editor into treating `*.aok`
+as `*.awk` files so I add a modeline at the top:
+
+     # /* vim: set filetype=awk ts=2 sw=2 sts=2 et : */
+
 So my standard directory structure 
 looks like this: 
 
