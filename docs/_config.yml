@@ -2,5 +2,5 @@ theme: jekyll-theme-minimal
 highlighter: rogue
 twitter_username: timmenzies
 github_username: timm
-site.title: "AOK= AWK+objects"
-site.description: "Adds (simple) abstract data types to AWK. Enables complex nesteted data structures."
+title: "AOK= AWK+objects"
+description: "Adds (simple) abstract data types to AWK. Enables complex nesteted data structures."
