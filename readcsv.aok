@@ -51,8 +51,6 @@ function _readcsvHead(t,lst,i,
 	  } else
        t.cols.indep[n]
   }
-  if (!klassed)
-	   t.cols.klass[length(lst)]
 }
 function _readcsvRow(t,lst,   j) {
    j=length(t.rows)+1
