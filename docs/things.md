@@ -135,7 +135,7 @@ function NumberFarcade1(i,v) {
 
 ## Sample
 
-`Sample  holds a random sample of the data see too date.
+`Sample`  holds a random sample of the data see too date.
 
 
 ```awk 
