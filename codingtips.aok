@@ -12,13 +12,15 @@ I've learned.
 
 ## Share Code, On-line
 
-My code is on-line from day1 is some public Gitbub repo.
+My code is on-line from day1 is some public Gitbub repo. This can be
+very useful-- it there are ten people in the world who care about your
+work, then that's the way they might find you.
 
 Github now can make any repo a website,
-serving up all the markdownfiles in a `docs` sub-directory.
-That means to write a site, like the one you are reading
-right now, is just a matter of adding in some markdown
-files into a sub-directory.
+serving up all the markdown files from a `docs` sub-directory.
+So  to write a site, like the one you are reading
+right now, is just a matter of adding markdown
+files into the right directory.
 
 ### Literate Programming
 
@@ -26,7 +28,8 @@ Code needs commentary-- not too much-- that helps
 other programmers to understand the code.
 I use markdown interwoven with the code in multi-line 
 comments (beginning and end marked with `===`).  Using 
-a pre-prossor, I auto-generate my code and markdown files.
+a pre-prossor, I then pull the source apart
+into an (1)executable awk code file and (2)a markdown files.
 
 My pre-processor which I call 
 [aok](https://github.com/ttv1/aok/blob/master/aok),
